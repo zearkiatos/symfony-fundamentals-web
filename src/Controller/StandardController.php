@@ -15,4 +15,13 @@ class StandardController extends AbstractController
             'controller_name' => 'Hello Symfony 🎶',
         ]);
     }
+
+    #[Route('/standard/{id}', name: 'standardById')]
+    public function byId($id): Response
+    {
+        dump($id);
+        return $this->render('standard/index.html.twig', [
+            'controller_name' => 'Hello Symfony 🎶 ',
+        ]);
+    }
 }
