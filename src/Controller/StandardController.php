@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StandardController extends AbstractController
 {
-    #[Route('/standard', name: 'standard')]
+    #[Route('/', name: 'standard')]
     public function index(): Response
     {
         return $this->render('standard/index.html.twig', [
@@ -16,12 +16,21 @@ class StandardController extends AbstractController
         ]);
     }
 
-    #[Route('/standard/{id}', name: 'standardById')]
-    public function byId($id): Response
+    #[Route('/page', name: 'page')]
+    public function page()
     {
+        return $this->render('standard/page.html.twig');
+    }
+
+    #[Route('/redirect-to-page', name: 'redirect-to-page')]
+    public function redirectToPage() {
+        return $this->redirectToRoute('page');
+    }
+
+    #[Route('/redirect-to-page-with-param/{id}/{name}', name: 'redirect-to-page-with-param')]
+    public function redirectToPageWithParam($id, $name) {
         dump($id);
-        return $this->render('standard/index.html.twig', [
-            'controller_name' => 'Hello Symfony 🎶 ',
-        ]);
+        dump($name);
+        return $this->redirectToRoute('page', ['id' => $id, 'name' => $name]);
     }
 }
