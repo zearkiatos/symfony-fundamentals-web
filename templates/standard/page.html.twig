@@ -16,3 +16,27 @@
 {% set test = "Hello World! 👋 🌎 I'm a variable from twig 🌱" %}
 
 <h1>{{test}}</h1>
+
+There are {{'Hello World!' | length}} characters in the text Hello World!
+
+{% set countriesList = ["Colombia", "Peru", "Argentina" ] %}
+
+There are {{countriesList | length}} into the list.
+
+Your first country is {{ countriesList | first }} and the last is {{ countriesList | last }}
+
+<h1>String with upper {{'Hello World!' | upper }}</h1>
+<h1>String with lower {{'Hello World!' | lower }}</h1>
+<h1>String with capitalize {{'Hello WORLD!' | capitalize }}</h1>
+
+{% set html = "<strong> I'm in bold </strong>"%}
+
+{{html | raw}}
+
+{% set numbers = "one,two,three" | split(',')%}
+
+{{numbers | first}}
+
+{% set greeting = "Hello World!" %}
+
+{{greeting | replace({"World": "Edteam"})}}
