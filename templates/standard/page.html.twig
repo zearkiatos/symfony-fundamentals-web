@@ -63,3 +63,20 @@ and the last is
 	<h1>{{random(['apple', 'orange', 'citrus'])}}</h1>
 </h1>
 <h1>{{random('ABC')}}</h1>
+
+<ul>
+	{% for country in countriesList %}
+		<li>{{country}}</li>
+	{% endfor %}
+</ul>
+<ul>
+	{% for i in 0..10  %}
+		<li>{{i}}</li>
+	{% endfor %}
+</ul>
+
+{% if 5 < 4 %}
+	5 is less
+{% else %}
+	5 is not less
+{% endif %}
