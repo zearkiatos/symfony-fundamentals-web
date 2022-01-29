@@ -10,3 +10,12 @@
 
 # Create a controller
 `php bin/console make:controller`
+
+# Create a database
+`php bin/console doctrine:database:create`
+
+# Command for create entities
+`php bin/console make:entity [the entity's name`
+
+# Pass the entities to the database
+`php bin/console doctrine:schema:update --force`
