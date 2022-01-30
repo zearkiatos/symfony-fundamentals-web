@@ -19,10 +19,13 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    public function create(Category $category) {
-        $entity = $this->getDoctrine()->getManager();
-        $entity->persist($category);
-        $entity->flush();
+    public function search(string $name)
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT category.id, category.name
+                FROM App:Category category
+                WHERE category.name =:name'
+        )->getResult();
     }
 
     // /**

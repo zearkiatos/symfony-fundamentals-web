@@ -3,6 +3,7 @@
 namespace App\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Category;
+use App\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,12 +20,17 @@ class StandardController extends AbstractController
         // $search = $entityManager->getRepository(Category::class)->find(1);
         // $search->setName('Technology 2');
         // $entityManager->flush();
-        $search = $entityManager->getRepository(Category::class)->find(1);
-        $entityManager->remove($search);
-        $entityManager->flush();
+        // $search = $entityManager->getRepository(Category::class)->find(1);
+        // $entityManager->remove($search);
+        // $entityManager->flush();
+        // $category = $entityManager->getRepository(Category::class)->find(2);
+        $category = $entityManager->getRepository(Category::class)->search('food');
+        // $product = new Product("Burgers","0789", $category);
+        // $entityManager->persist($product);
+        // $entityManager->flush();
         return $this->render('standard/index.html.twig', [
             'controller_name' => 'Hello Symfony 🎶',
-            'search'=>$search
+            'search'=>$category
         ]);
     }
 

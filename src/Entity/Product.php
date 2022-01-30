@@ -4,10 +4,19 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
+
+    function __construct(string $name, string $code, Category $category)
+    {
+        $this->name = $name;
+        $this->code = $code;
+        $this->category = $category;
+        $this->created_date = new DateTime();
+    }
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
