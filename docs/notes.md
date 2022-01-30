@@ -14,7 +14,7 @@
 # Create a database
 `php bin/console doctrine:database:create`
 
-# Command for create entities
+# Command for create entities and let you edit an specific entity
 `php bin/console make:entity [the entity's name`
 
 # Pass the entities to the database

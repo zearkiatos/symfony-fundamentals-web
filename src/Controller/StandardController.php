@@ -1,18 +1,30 @@
 <?php
 
 namespace App\Controller;
-
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class StandardController extends AbstractController
 {
+
     #[Route('/', name: 'standard')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
+        // $category = new Category('Clothes');
+        // $entityManager->persist($category);
+        // $entityManager->flush();
+        // $search = $entityManager->getRepository(Category::class)->find(1);
+        // $search->setName('Technology 2');
+        // $entityManager->flush();
+        $search = $entityManager->getRepository(Category::class)->find(1);
+        $entityManager->remove($search);
+        $entityManager->flush();
         return $this->render('standard/index.html.twig', [
             'controller_name' => 'Hello Symfony 🎶',
+            'search'=>$search
         ]);
     }
 
