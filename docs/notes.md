@@ -19,3 +19,6 @@
 
 # Pass the entities to the database
 `php bin/console doctrine:schema:update --force`
+
+# Command for create forms
+`php bin/console make:form [FormName]`

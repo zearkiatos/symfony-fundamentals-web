@@ -4,6 +4,8 @@ namespace App\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Form\CategoryType;
+use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,5 +65,28 @@ class StandardController extends AbstractController
         dump($id);
         dump($name);
         return $this->redirectToRoute('page-with-param', ['param1' => $id, 'param2' => $name]);
+    }
+
+
+    #[Route('/category-page', name: 'category')]
+    public function categoryPage()
+    {
+        $category = new Category('Name');
+        $formCategory = $this->createForm(CategoryType::class, $category);
+
+        return $this->render("standard/category.html.twig", [
+            'formCategory' => $formCategory->createView()
+        ]);
+    }
+
+    #[Route('/product-page', name: 'product')]
+    public function productPage()
+    {
+        $product = new Product('','', new Category(''));
+        $formProduct = $this->createForm(ProductType::class, $product);
+
+        return $this->render("standard/product.html.twig", [
+            'formProduct' => $formProduct->createView()
+        ]);
     }
 }
