@@ -82,8 +82,8 @@ class StandardController extends AbstractController
     #[Route('/product-page', name: 'product')]
     public function productPage()
     {
-        $product = new Product('','', new Category(''));
-        $formProduct = $this->createForm(ProductType::class, $product);
+        // $product = new Product('','', new Category(''));
+        $formProduct = $this->createForm(ProductType::class);
 
         return $this->render("standard/product.html.twig", [
             'formProduct' => $formProduct->createView()
