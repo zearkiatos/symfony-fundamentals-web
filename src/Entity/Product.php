@@ -10,13 +10,13 @@ use DateTime;
 class Product
 {
 
-    function __construct(string $name, string $code, Category $category)
+    function __construct(string $name, string $code)
     {
         $this->name = $name;
         $this->code = $code;
-        $this->category = $category;
         $this->created_date = new DateTime();
     }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]

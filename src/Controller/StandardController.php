@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Controller;
+
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Form\CategoryType;
 use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -32,7 +34,7 @@ class StandardController extends AbstractController
         // $entityManager->flush();
         return $this->render('standard/index.html.twig', [
             'controller_name' => 'Hello Symfony 🎶',
-            'search'=>$category
+            'search' => $category
         ]);
     }
 
@@ -80,10 +82,18 @@ class StandardController extends AbstractController
     }
 
     #[Route('/product-page', name: 'product')]
-    public function productPage()
+    public function productPage(Request $request, EntityManagerInterface $entityManager)
     {
-        // $product = new Product('','', new Category(''));
-        $formProduct = $this->createForm(ProductType::class);
+        $product = new Product('', '');
+        $formProduct = $this->createForm(ProductType::class, $product);
+        $formProduct->handleRequest($request);
+
+        if ($formProduct->isSubmitted() && $formProduct->isValid()) {
+            $entityManager->persist($product);
+            $entityManager->flush();
+            $this->addFlash('Success', 'The data was save successfully');
+            return $this->redirectToRoute('product');
+        }
 
         return $this->render("standard/product.html.twig", [
             'formProduct' => $formProduct->createView()
