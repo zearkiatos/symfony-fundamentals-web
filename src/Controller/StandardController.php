@@ -8,9 +8,12 @@ use App\Entity\Product;
 use App\Form\CategoryType;
 use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Exception;
 
 class StandardController extends AbstractController
 {
@@ -82,15 +85,28 @@ class StandardController extends AbstractController
     }
 
     #[Route('/product-page', name: 'product')]
-    public function productPage(Request $request, EntityManagerInterface $entityManager)
+    public function productPage(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger)
     {
         $product = new Product('', '');
         $formProduct = $this->createForm(ProductType::class, $product);
         $formProduct->handleRequest($request);
 
         if ($formProduct->isSubmitted() && $formProduct->isValid()) {
-            $entityManager->persist($product);
-            $entityManager->flush();
+            $photo = $formProduct->get('photo')->getData();
+            if ($photo) {
+                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
+                $product->setPhoto($newFilename);
+                try {
+                    $photo->move($this->getParameter(('photos_directory')), $newFilename);
+                    $entityManager->persist($product);
+                    $entityManager->flush();
+                } catch (FileException $exception) {
+                    throw new Exception(("Ups something was wrong"));
+                }
+            }
+
             $this->addFlash('Success', 'The data was save successfully');
             return $this->redirectToRoute('product');
         }
