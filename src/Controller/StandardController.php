@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Form\CategoryType;
+use App\Form\ExampleType;
 use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -113,6 +114,23 @@ class StandardController extends AbstractController
 
         return $this->render("standard/product.html.twig", [
             'formProduct' => $formProduct->createView()
+        ]);
+    }
+
+    #[Route('/example-page', name: 'example')]
+    public function examplePage(Request $request)
+    {
+        $formExample = $this->createForm(ExampleType::class);
+
+        $formExample->handleRequest($request);
+
+        if ($formExample->isSubmitted() && $formExample->isValid()) {
+            $name = $formExample->get('name')->getData();
+            $password = $formExample->get('password')->getData();
+            $username = $formExample->get('username')->getData();
+        }
+        return $this->render("standard/example.html.twig", [
+            'formExample' => $formExample->createView()
         ]);
     }
 }
