@@ -1,0 +1,82 @@
+<h1>Into the page</h1>
+
+<h2>Params values</h2>
+<div>
+	{{param1}}
+	*
+	{{param2}}
+	=
+	{{result}}
+</div>
+
+<a href="{{path("standard")}}">Go to the Index</a>
+
+{# This is a comment #}
+
+{% set test = "Hello World! 👋 🌎 I'm a variable from twig 🌱" %}
+
+<h1>{{test}}</h1>
+
+There are
+{{'Hello World!' | length}}
+characters in the text Hello World!
+
+{% set countriesList = ["Colombia", "Peru", "Argentina" ] %}
+
+There are
+{{countriesList | length}}
+into the list.
+
+Your first country is
+{{ countriesList | first }}
+and the last is
+{{ countriesList | last }}
+
+<h1>String with upper
+	{{'Hello World!' | upper }}</h1>
+<h1>String with lower
+	{{'Hello World!' | lower }}</h1>
+<h1>String with capitalize
+	{{'Hello WORLD!' | capitalize }}</h1>
+
+{% set html = "<strong> I'm in bold </strong>"%}
+
+{{html | raw}}
+
+{% set numbers = "one,two,three" | split(',')%}
+
+{{numbers | first}}
+
+{% set greeting = "Hello World!" %}
+
+{{greeting | replace({"World": "Edteam"})}}
+
+<h1>==================FUNCTIONS=====================</H1>
+{{dump(param1)}}
+{{dump(countriesList)}}
+<h1>The granter number between 1 and 3 is:
+	{{max(1,3,2)}}</h1>
+
+<h1>The less number between 1 and 3 is:
+	{{min(1,3,2)}}</h1>
+<h1>
+	<h1>{{random(['apple', 'orange', 'citrus'])}}</h1>
+</h1>
+<h1>{{random('ABC')}}</h1>
+
+<ul>
+	{% for country in countriesList %}
+		<li>{{country}}</li>
+	{% endfor %}
+</ul>
+<ul>
+	{% for i in 0..10  %}
+		<li>{{i}}</li>
+	{% endfor %}
+</ul>
+
+{% if 5 < 4 %}
+	5 is less
+{% else %}
+	5 is not less
+{% endif %}

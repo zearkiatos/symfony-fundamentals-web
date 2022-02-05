@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+{% endblock %}
+{% block body %}
+	{{parent()}}
+	{{form(formExample)}}{% endblock %}
+	{% block javascripts %}
+		{{parent()}}
+	{% endblock %}

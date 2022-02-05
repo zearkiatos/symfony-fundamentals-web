@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+{% endblock %}
+{% block stylesheets %}
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	{{parent()}}
+	{{dump(search)}}
+	<h1>Hello World! 👋 🌎</h1>
+	<a href="{{path('page-with-param', {param1: 5, param2: 2})}}">Go to page</a>
+{% endblock %}
+{% block javascripts %}
+	{{parent()}}
+{% endblock %}
